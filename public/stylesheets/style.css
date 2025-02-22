@@ -1,8 +1,55 @@
 body{
   text-align: center;
+  padding: 1%;
   background-color: #dbd8ae;
+  font-family: 'American Typewriter', serif;
 }
 
 h1{
   padding: 1%;
+  text-align: center;
 }
+
+h2{
+  padding-left: 2%;
+  text-align: left;
+}
+
+.logo-image{
+  height: 12%;
+  width: 12%;
+}
+
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  justify-content: center;
+}
+
+ th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.produce-menu input[type='number'] {
+  padding: 4px;
+}
+
+

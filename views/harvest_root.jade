@@ -1,0 +1,81 @@
+extends layout
+
+block content
+  h1= 'Farm Fetch.'
+  h2= vendor_name
+  div#tableContainer
+  
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      const produceList = [
+        { name: "Apples", price: 1.50 }, // price per pound
+        { name: "Oranges", price: 1.25 },
+        { name: "Tomatoes", price: 2.00 },
+        { name: "Carrots", price: 0.75 },
+        { name: "Lettuce", price: 1.00 }
+      ];
+
+      const container = document.getElementById('tableContainer');
+      if (container) {
+        const table = document.createElement('table');
+        table.className = 'produce-menu';
+
+        // Create the table header
+        const thead = document.createElement('thead');
+        const trHead = document.createElement('tr');
+        const thName = document.createElement('th');
+        thName.textContent = 'Produce Name';
+        const thPrice = document.createElement('th');
+        thPrice.textContent = 'Price per Pound';
+        const thQuantity = document.createElement('th');
+        thQuantity.textContent = 'Quantity (lbs)';
+        const thCost = document.createElement('th');
+        thCost.textContent = 'Total Cost';
+        trHead.appendChild(thName);
+        trHead.appendChild(thPrice);
+        trHead.appendChild(thQuantity);
+        trHead.appendChild(thCost);
+        thead.appendChild(trHead);
+        table.appendChild(thead);
+
+        // Create the table body
+        const tbody = document.createElement('tbody');
+        produceList.forEach(item => {
+          const tr = document.createElement('tr');
+          const tdName = document.createElement('td');
+          tdName.textContent = item.name;
+          const tdPrice = document.createElement('td');
+          tdPrice.textContent = `$${item.price.toFixed(2)}`;
+          const tdQuantity = document.createElement('td');
+          const inputQuantity = document.createElement('input');
+          inputQuantity.type = 'number';
+          inputQuantity.min = '0';
+          inputQuantity.value = '0';
+          inputQuantity.style.width = '50px';
+          inputQuantity.oninput = function() {
+            updateCost(this, item.price);
+          };
+          tdQuantity.appendChild(inputQuantity);
+          const tdCost = document.createElement('td');
+          tdCost.textContent = '$0.00';
+          tdCost.className = 'cost';
+          tr.appendChild(tdName);
+          tr.appendChild(tdPrice);
+          tr.appendChild(tdQuantity);
+          tr.appendChild(tdCost);
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        container.appendChild(table);
+      } else {
+        console.error('Container not found for the produce menu table.');
+      }
+
+      function updateCost(input, price) {
+        const tr = input.parentNode.parentNode;
+        const costCell = tr.querySelector('.cost');
+        const quantity = parseFloat(input.value);
+        const cost = quantity * price;
+        costCell.textContent = `$${cost.toFixed(2)}`;
+      }
+    });

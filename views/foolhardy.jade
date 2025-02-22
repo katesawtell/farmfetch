@@ -1,4 +1,65 @@
-extends layout 
+extends layout
 
 block content
-  h1= 'Farm Fetch'
+  h1= 'Farm Fetch.'
+  h2= vendor_name
+  div#tableContainer
+  
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      const coffeeMenu = [
+        { name: "Latte", price: "$6" },
+        { name: "Cappuccino", price: "$5" },
+        { name: "Americano", price: "$4" },
+        { name: "Espresso", price: "$4" },
+        { name: "Macchiato", price: "$4" },
+        { name: "Cortado", price: "$4" },
+        { name: "Lemonade", price: "$5" },
+        { name: "Chai", price: "$4" },
+        { name: "Matcha", price: "$4" },
+        { name: "Milk", price: "$4" }
+      ];
+
+      const container = document.getElementById('tableContainer');
+      if (container) {
+        const table = document.createElement('table');
+        table.className = 'coffee-menu';
+
+        // Create the table header
+        const thead = document.createElement('thead');
+        const trHead = document.createElement('tr');
+        const thName = document.createElement('th');
+        thName.textContent = 'Drink Name';
+        const thPrice = document.createElement('th');
+        thPrice.textContent = 'Price';
+        const thAdd = document.createElement('th');
+        thAdd.textContent = 'Add to Cart';
+        trHead.appendChild(thName);
+        trHead.appendChild(thPrice);
+        trHead.appendChild(thAdd);
+        thead.appendChild(trHead);
+        table.appendChild(thead);
+
+        // Create the table body
+        const tbody = document.createElement('tbody');
+        coffeeMenu.forEach(drink => {
+          const tr = document.createElement('tr');
+          const tdName = document.createElement('td');
+          tdName.textContent = drink.name;
+          const tdPrice = document.createElement('td');
+          tdPrice.textContent = drink.price;
+          const tdAdd = document.createElement('td');
+          const addButton = document.createElement('button');
+          addButton.textContent = '+';
+          tdAdd.appendChild(addButton);
+          tr.appendChild(tdName);
+          tr.appendChild(tdPrice);
+          tr.appendChild(tdAdd);
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        container.appendChild(table);
+      } else {
+        console.error('Container not found for the coffee menu table.');
+      }
+    });
